@@ -27,3 +27,10 @@ Base 256 and a large prime modulus (`1_000_000_007`) keep the arithmetic inside 
 - A pattern **longer than the text** returns `[]`.
 - **Overlapping** matches are all reported (e.g. `"aa"` in `"aaaa"` yields starts 0, 1, and 2).
 - Input must be `str`; passing `bytes` or any non-string type raises `TypeError`. Convert `bytes` with `.decode()` first if you need to search raw byte data.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
